@@ -1,0 +1,31 @@
+{
+  "name": "inventory_and_order_management_system",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoradiAsaf/Inventory_and_Order_Management_System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MoradiAsaf/Inventory_and_Order_Management_System/issues"
+  },
+  "homepage": "https://github.com/MoradiAsaf/Inventory_and_Order_Management_System#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.0",
+    "nodemon": "^3.1.10"
+  }
+}
