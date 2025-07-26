@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>עדכון תשלום</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <script src="../js/loadNavbar.js"></script>
+  <h2>💳 עדכון פרטי תשלום</h2>
+  <form id="paymentForm">
+    <label>אמצעי תשלום:
+      <select id="payment_method">
+        <option value="credit_card">כרטיס אשראי</option>
+        <option value="cash">מזומן</option>
+        <option value="transfer">העברה</option>
+      </select>
+    </label><br>
+  
+    <label>יום חיוב: <input type="number" id="billing_day" min="1" max="31"></label><br>
+  
+    <button type="submit">עדכן תשלום</button>
+  </form>
+  
+  <p id="message"></p>
+  <script src="../js/update-payment.js"></script>
+  
+</body>
+</html>

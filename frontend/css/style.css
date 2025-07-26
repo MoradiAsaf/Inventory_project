@@ -1,37 +1,48 @@
 body {
-    font-family: Arial, sans-serif;
     direction: rtl;
-    text-align: right;
-    background-color: #f4f4f4;
-    padding: 40px;
-  }
-  
-  h1, h2 {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
     color: #333;
   }
   
-  form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  h1, h2, h3 {
+    text-align: center;
+    margin-top: 20px;
+    color: #222;
   }
   
-  input, select, button {
+  form, .form-section {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  label {
     display: block;
+    margin-bottom: 10px;
+  }
+  
+  input, select {
     width: 100%;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    padding: 10px;
-    font-size: 16px;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   
   button {
+    padding: 10px 20px;
     background-color: #007bff;
-    color: white;
     border: none;
     border-radius: 4px;
+    color: white;
     cursor: pointer;
   }
   
@@ -39,8 +50,39 @@ body {
     background-color: #0056b3;
   }
   
-  p#error, p#message {
-    color: red;
+  #message {
+    text-align: center;
+    margin-top: 15px;
     font-weight: bold;
+    color: red;
+  }
+  
+  #product-list, #cart-container {
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  #product-list > div,
+  #cart-container > div {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  input[type="number"] {
+    max-width: 100px;
+  }
+  
+  button + button {
+    margin-right: 10px;
+  }
+  
+  @media (max-width: 500px) {
+    form, .form-section {
+      margin: 10px;
+      padding: 10px;
+    }
   }
   
