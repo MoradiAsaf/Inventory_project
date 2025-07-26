@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>הרשמה למערכת</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <h2>הרשמה למערכת</h2>
+
+  <form id="signupForm">
+    <label>שם משתמש: <input type="text" id="username" required></label><br>
+    <label>אימייל: <input type="email" id="email" required></label><br>
+    <label>סיסמה: <input type="password" id="password" required></label><br>
+    <label>שם מלא: <input type="text" id="full_name" required></label><br>
+    <label>טלפון: <input type="text" id="phone"></label><br>
+    <label>כתובת: <input type="text" id="address"></label><br>
+    <label>אמצעי תשלום:
+      <select id="payment_method">
+        <option value="credit_card">כרטיס אשראי</option>
+        <option value="cash">מזומן</option>
+        <option value="transfer">העברה</option>
+      </select>
+    </label><br>
+    <label>יום חיוב: <input type="number" id="billing_day" min="1" max="31"></label><br>
+
+    <button type="submit">צור משתמש</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script src="../js/signup.js"></script>
+</body>
+</html>

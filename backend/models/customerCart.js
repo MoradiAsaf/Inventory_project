@@ -23,9 +23,6 @@ const customerCartSchema = new mongoose.Schema({
         }
     ],
 
-    delivery_date: {
-        type: Date
-    },
 
     last_updated: {
         type: Date,
