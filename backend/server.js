@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
-const connectDB = require("./database");
+require("./database");
 const path = require("path");
 require('dotenv').config({ path: './backend/.env' });
 
@@ -14,7 +14,6 @@ const productsRoute = require("./routes/products")
 const cartRoute = require("./routes/customerCart");
 const orderRoute = require("./routes/customerOrder");
 
-connectDB();
 
 const PORT = process.env.PORT || 3000
 const app = express();
