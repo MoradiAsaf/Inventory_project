@@ -1,6 +1,6 @@
-// frontend/js/loadNavbar.js
 window.addEventListener("DOMContentLoaded", () => {
-    fetch("../components/navbar.html")
+    let pathPrefix = location.pathname.includes("/pages/") ? "../" : "";
+    fetch(`${pathPrefix}components/navbar.html`)
       .then(res => res.text())
       .then(html => {
         const navbarContainer = document.createElement("div");

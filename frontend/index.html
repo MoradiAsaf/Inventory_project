@@ -2,13 +2,27 @@
 <html lang="he">
 <head>
   <meta charset="UTF-8">
-  <title>ברוך הבא</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <title>ברוכים הבאים</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>ברוך הבא למערכת</h1>
+   <button onclick="location.href='pages/login.html'">התחברות</button>
+   <button onclick="location.href='pages/signup.html'">הרשמה</button>
+   <script src="js/loadNavbar.js"></script>
+  <h2 style="text-align:center; margin-top:20px;">🎉 ברוכים הבאים למערכת ההזמנות</h2>
+  <p style="text-align:center;">צפה במוצרים ובצע הזמנות בצורה נוחה</p>
 
-  <a href="./pages/login.html">התחברות</a><br>
-  <a href="./pages/signup.html">הרשמה</a>
+  <div id="product-list" class="form-section"></div>
+  <p id="message"></p>
+
+  <!-- הודעת התחברות קופצת -->
+  <div id="loginPrompt" style="display:none; background:#fff; border:1px solid #ccc; padding:20px; position:fixed; top:30%; left:50%; transform:translateX(-50%); z-index:999; border-radius:10px; text-align:center;">
+    <p>🛑 כדי להמשיך יש להתחבר או להירשם</p>
+    <button onclick="location.href='pages/login.html'">התחברות</button>
+    <button onclick="location.href='pages/signup.html'">הרשמה</button><br><br>
+    <button onclick="closeLoginPrompt()">ביטול</button>
+  </div>
+
+  <script src="js/index.js"></script>
 </body>
 </html>
