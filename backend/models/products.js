@@ -14,7 +14,9 @@ const productSchema = new mongoose.Schema({
   price_customer: { type: Number, required: true, min: 0 },
   quantity_in_stock: { type: Number, default: 0 },
   unit: { type: String, default: "unit" },
-  notes: { type: String }
+  notes: { type: String },
+  ב: { type: String, required: false },
+
   
 }, {timestamps:true});
 

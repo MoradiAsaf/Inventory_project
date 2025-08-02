@@ -19,16 +19,24 @@ window.addEventListener("DOMContentLoaded", async () => {
         card.style.margin = "10px";
         card.style.padding = "10px";
   
+        card.className = "product-card";
+
         card.innerHTML = `
-          <strong>${p.name}</strong><br>
+        ${p.image_url ? `<img src="${p.image_url}" alt="תמונה של ${p.name}" class="product-image">` : ''}
+        <div class="product-info">
+          <strong>${p.name}</strong>
           מחיר: ${p.price_customer} ₪<br>
           קטגוריה: ${p.category?.name || '---'}<br>
-          ספק: ${p.supplier?.name || '---'}<br>
+          ספק: ${p.supplier?.name || '---'}<br><br>
           <label>כמות:
             <input type="number" min="1" value="1" id="qty-${p._id}">
-          </label>
-          <button onclick="addToCart('${p._id}')">הוסף לעגלה</button>
-        `;
+          </label><br><br>
+          <button class="add-to-cart-btn" onclick="addToCart('${p._id}')">הוסף לעגלה</button>
+        </div>
+      `;
+        
+
+      
   
         container.appendChild(card);
       });

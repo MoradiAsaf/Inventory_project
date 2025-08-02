@@ -8,8 +8,8 @@ const authMiddleware = (req, res, next) => {
   }
 
   try {
-    const decoded = verifyToken(token); // שימוש בפונקציה מ-centralized utils
-    req.customerId = decoded.id;
+    const decoded = verifyToken(token);
+    req.customerId = decoded.customerId; // ✅ במקום decoded.id
     next();
   } catch (err) {
     return res.status(401).json({ message: 'Invalid token.' });

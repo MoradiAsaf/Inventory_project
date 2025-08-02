@@ -7,69 +7,44 @@ const Product = require('../models/products');
 // יצירת הזמנה מהעגלה
 router.post('/checkout/:customerId', async (req, res) => {
   try {
-    console.log("checkout");
-    
-    const { customerId } = req.params;
-    console.log("customerId", customerId);
-    const cart = await CustomerCart.findOne({ customer: customerId }).populate('items.product');
+    const { delivery_date } = req.body;
+    const customerId = req.params.customerId;
+
+    // ולידציה על תאריך: חייב להיות לפחות מחר
+    const selectedDate = new Date(delivery_date);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+
+    if (selectedDate < tomorrow) {
+      return res.status(400).json({ message: 'לא ניתן לבחור תאריך משלוח שהוא היום או מהעבר' });
+    }
+
+    const cart = await Cart.findOne({ customer: customerId }).populate('items.product');
     if (!cart || cart.items.length === 0) {
-      return res.status(400).json({ message: 'Cart is empty or not found' });
-    }
-    console.log("cart", cart);
-
-    // בדיקת זמינות מלאי ועדכון מלאי
-    let inventoryOK = true;
-    for (let item of cart.items) {
-      if (item.quantity > item.product.quantity_in_stock) {
-        inventoryOK = false;
-        break;
-      }
+      return res.status(400).json({ message: "העגלה ריקה" });
     }
 
-    // חישוב סכום כולל
-    const totalPrice = cart.items.reduce((sum, item) => {
-      return sum + item.quantity * item.product.price_customer;
-    }, 0);
-
-    // יצירת הזמנה
     const order = new CustomerOrder({
       customer: customerId,
-      delivery_date: req.body.delivery_date,
+      delivery_date,
       items: cart.items.map(item => ({
         product: item.product._id,
         quantity: item.quantity
       })),
-      total_price: totalPrice,
-      inventory_reserved: inventoryOK,
-      status: inventoryOK ? 'pending' : 'rejected',
-      rejection_reason: inventoryOK ? null : 'Insufficient inventory'
+      status: "pending"
     });
 
     await order.save();
+    await Cart.findOneAndUpdate({ customer: customerId }, { items: [] });
 
-    // עדכון המלאי
-    if (inventoryOK) {
-      for (let item of cart.items) {
-        await Product.findByIdAndUpdate(item.product._id, {
-          $inc: { quantity_in_stock: -item.quantity }
-        });
-      }
-    }
-
-    // ניקוי עגלה – לא מוחקים, רק מאפסים
-    cart.items = [];
-    cart.delivery_date = null;
-    cart.last_updated = Date.now();
-    await cart.save();
-
-
-    res.status(201).json({ message: 'Order created', order });
+    res.status(201).json({ message: "ההזמנה בוצעה בהצלחה", order });
 
   } catch (err) {
-    console.error("❌ Error during checkout:", err); // הוספת לוג
-    res.status(500).json({ message: 'Something went wrong', error: err.message });
+    res.status(500).json({ message: "שגיאה בביצוע ההזמנה", error: err.message });
   }
 });
+
 
 
 // שליפת כל ההזמנות של לקוח מסוים
@@ -97,6 +72,8 @@ router.patch('/:orderId/status', async (req, res) => {
   try {
     const { status, rejection_reason } = req.body;
 
+    console.log("📥 עדכון סטטוס:", status, " | סיבת דחייה:", rejection_reason);
+
     const order = await CustomerOrder.findById(req.params.orderId);
     if (!order) return res.status(404).json({ message: 'Order not found' });
 
@@ -107,8 +84,10 @@ router.patch('/:orderId/status', async (req, res) => {
 
     res.status(200).json({ message: 'Order updated', order });
   } catch (err) {
+    console.error("❌ Update error:", err);
     res.status(500).json({ message: 'Something went wrong', error: err.message });
   }
 });
+
 
 module.exports = router;

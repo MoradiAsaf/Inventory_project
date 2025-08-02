@@ -5,7 +5,7 @@ require("./database");
 const path = require("path");
 require('dotenv').config({ path: './backend/.env' });
 
-
+const { scheduleDailyUpdate } = require("./services/orderStatusUpdater");
 
 const customerRoute = require("./routes/customers")
 const supplierRoute = require("./routes/suppliers")
@@ -13,7 +13,7 @@ const categoryRoute = require("./routes/categories")
 const productsRoute = require("./routes/products")
 const cartRoute = require("./routes/customerCart");
 const orderRoute = require("./routes/customerOrder");
-
+const adminRoute = require("./routes/admin");
 
 const PORT = process.env.PORT || 3000
 const app = express();
@@ -33,7 +33,9 @@ app.use('/api/categories', categoryRoute)
 app.use('/api/products', productsRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/orders', orderRoute);
+app.use('/api/admin', adminRoute);
 
+scheduleDailyUpdate();
 
 // הגשת קבצי סטטיים מהתיקיה frontend
 app.use(express.static(path.join(__dirname, "../frontend")));

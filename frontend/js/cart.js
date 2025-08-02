@@ -1,5 +1,17 @@
 window.addEventListener("DOMContentLoaded", loadCart);
 
+document.addEventListener("DOMContentLoaded", () => {
+  const deliveryInput = document.getElementById("deliveryDate");
+  if (deliveryInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yyyy = tomorrow.getFullYear();
+    const mm = String(tomorrow.getMonth() + 1).padStart(2, "0");
+    const dd = String(tomorrow.getDate()).padStart(2, "0");
+    deliveryInput.min = `${yyyy}-${mm}-${dd}`;
+  }
+});
+
 async function loadCart() {
   try {
     const res = await fetch("http://localhost:3000/api/cart", {

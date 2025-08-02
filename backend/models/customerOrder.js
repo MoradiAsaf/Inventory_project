@@ -44,7 +44,7 @@ const customerOrderSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        enum: ['pending', 'fulfilled', 'rejected'],
+        enum: ['pending', 'delivered', 'rejected'],
         default: 'pending'
     },
 

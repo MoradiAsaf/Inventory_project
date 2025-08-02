@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>לוח ניהול</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <h2>📊 לוח ניהול</h2>
+
+  <div class="form-section" style="text-align: center;">
+    <p>ברוך הבא, מנהל 👨‍💼</p>
+    <button onclick="location.href='orders.html'">📦 ניהול הזמנות</button>
+    <button onclick="location.href='customers.html'">👥 ניהול לקוחות</button>
+    <button onclick="location.href='products.html'">🛒 ניהול מוצרים</button>
+    <button onclick="location.href='suppliers.html'">🚚 ניהול ספקים</button>
+    <br><br>
+    <button onclick="logout()">🔓 התנתקות</button>
+  </div>
+
+  <script>
+    function logout() {
+      document.cookie = "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
