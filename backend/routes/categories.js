@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Category = require("../models/category");
+const authAdmin = require("../middleware/authAdmin");
+
 
 // GET כל הקטגוריות
 router.get('/', async (req, res) => {
@@ -26,7 +28,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST – יצירת קטגוריה
-router.post('/', async (req, res) => {
+router.post('/', authAdmin, async (req, res) => {
   try {
     const { name, description } = req.body;
 
@@ -45,7 +47,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT – עדכון קטגוריה
-router.put('/:id', async (req, res) => {
+router.put('/:id', authAdmin, async (req, res) => {
   try {
     const updated = await Category.findByIdAndUpdate(
       req.params.id,
@@ -61,7 +63,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE – מחיקת קטגוריה
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authAdmin, async (req, res) => {
   try {
     const deleted = await Category.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Category not found' });

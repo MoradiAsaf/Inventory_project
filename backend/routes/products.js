@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/products");
+const authAdmin = require("../middleware/authAdmin");
+
 
 // GET all products
 router.get('/', async (req, res) => {
@@ -29,7 +31,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST new product
-router.post('/', async (req, res) => {
+router.post('/', authAdmin, async (req, res) => {
   try {
     const {
       name,
@@ -68,7 +70,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update product by ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', authAdmin, async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,

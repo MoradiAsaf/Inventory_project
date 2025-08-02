@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Supplier = require("../models/supplier");
+const authAdmin = require("../middleware/authAdmin");
 
-router.post('/', async (req, res) => {
+
+router.post('/', authAdmin, async (req, res) => {
     const {name, contact_name, phone, email, notes} = req.body
     const supplier = await Supplier.findOne({name})
     if(supplier){
@@ -41,7 +43,7 @@ router.get('/:id', async (req, res) => {
 
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authAdmin, async (req, res) => {
     try {
       const supplier = await Supplier.findByIdAndUpdate(
         req.params.id,
@@ -60,7 +62,7 @@ router.put('/:id', async (req, res) => {
   });
   
 
-  router.patch('/:id/activate', async (req, res) => {
+  router.patch('/:id/activate', authAdmin, async (req, res) => {
     const supplier = await Supplier.findByIdAndUpdate(req.params.id, { is_active: true }, { new: true });
     if (!supplier) return res.status(404).json({ message: 'supplier not fount' });
     res.status(200).json(supplier);
@@ -68,7 +70,7 @@ router.put('/:id', async (req, res) => {
   
 
 
-  router.patch('/:id/deactivate', async (req, res) => {
+  router.patch('/:id/deactivate', authAdmin, async (req, res) => {
     const supplier = await Supplier.findByIdAndUpdate(req.params.id, { is_active: false }, { new: true });
     if (!supplier) return res.status(404).json({ message: 'supplier not fount' });
     res.status(200).json(supplier);

@@ -3,6 +3,8 @@ const router = express.Router();
 const CustomerOrder = require('../models/customerOrder');
 const CustomerCart = require('../models/customerCart');
 const Product = require('../models/products');
+const authAdmin = require("../middleware/authAdmin");
+
 
 // יצירת הזמנה מהעגלה
 router.post('/checkout/:customerId', async (req, res) => {
@@ -58,7 +60,7 @@ router.get('/customer/:customerId', async (req, res) => {
 });
 
 // שליפת כל ההזמנות (למנהל)
-router.get('/', async (req, res) => {
+router.get('/', authAdmin, async (req, res) => {
   try {
     const orders = await CustomerOrder.find().populate('customer').populate('items.product');
     res.status(200).json(orders);
@@ -68,7 +70,7 @@ router.get('/', async (req, res) => {
 });
 
 // עדכון סטטוס של הזמנה (למנהל)
-router.patch('/:orderId/status', async (req, res) => {
+router.patch('/:orderId/status', authAdmin, async (req, res) => {
   try {
     const { status, rejection_reason } = req.body;
 
