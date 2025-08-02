@@ -3,7 +3,7 @@ const customerId = localStorage.getItem("customerId");
 // טוען את פרטי המשתמש הקיימים
 async function loadCustomerData() {
   try {
-    const res = await fetch(`http://localhost:3000/api/customers/${customerId}`, {
+    const res = await fetch(`/api/customers/${customerId}`, {
       credentials: "include"
     });
     const data = await res.json();
@@ -32,7 +32,7 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
     address:   document.getElementById("address").value
   };
 
-  const res = await fetch(`http://localhost:3000/api/customers/${customerId}`, {
+  const res = await fetch(`/api/customers/${customerId}`, {
     method: "PUT",
     credentials: "include",
     headers: { "Content-Type": "application/json" },

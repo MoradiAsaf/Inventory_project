@@ -2,7 +2,7 @@ const customerId = localStorage.getItem("customerId");
 
 async function loadPaymentData() {
   try {
-    const res = await fetch(`http://localhost:3000/api/customers/${customerId}`, {
+    const res = await fetch(`/api/customers/${customerId}`, {
       credentials: "include"
     });
     const data = await res.json();
@@ -28,7 +28,7 @@ document.getElementById("paymentForm").addEventListener("submit", async (e) => {
     billing_day:    parseInt(document.getElementById("billing_day").value)
   };
 
-  const res = await fetch(`http://localhost:3000/api/customers/${customerId}`, {
+  const res = await fetch(`/api/customers/${customerId}`, {
     method: "PUT",
     credentials: "include",
     headers: { "Content-Type": "application/json" },

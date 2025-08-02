@@ -1,7 +1,7 @@
 // frontend/js/admin/checkAdminAuth.js
 window.addEventListener("DOMContentLoaded", async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/admin/me", {
+      const res = await fetch("/api/admin/me", {
         credentials: "include",
       });
   

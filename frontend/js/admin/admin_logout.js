@@ -1,5 +1,5 @@
 function admin_logout() {
-fetch("http://localhost:3000/api/admin/logout", {
+fetch("/api/admin/logout", {
     method: "POST",
     credentials: "include"
 })

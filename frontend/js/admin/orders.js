@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/orders", {
+      const res = await fetch("/api/orders", {
         credentials: "include"
       });
       const data = await res.json();
@@ -71,7 +71,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const reason = status === "rejected" ? prompt("ציין סיבת דחייה:") : null;
   
     try {
-      const res = await fetch(`http://localhost:3000/api/orders/${orderId}/status`, {
+      const res = await fetch(`/api/orders/${orderId}/status`, {
         method: "PATCH",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

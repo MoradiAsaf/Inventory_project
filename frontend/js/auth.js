@@ -4,7 +4,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch("http://localhost:3000/api/customers/login", {
+  const res = await fetch("/api/customers/login", {
     method: "POST",
     credentials: "include", // חשוב מאוד כדי לקבל את ה-cookie
     headers: {

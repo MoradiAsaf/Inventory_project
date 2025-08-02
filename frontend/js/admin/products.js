@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   
   async function loadSuppliers() {
     try {
-      const res = await fetch("http://localhost:3000/api/suppliers");
+      const res = await fetch("/api/suppliers");
       const suppliers = await res.json();
   
       const select = document.getElementById("supplier");
@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   
   async function loadCategories() {
     try {
-      const res = await fetch("http://localhost:3000/api/categories");
+      const res = await fetch("/api/categories");
       const categories = await res.json();
   
       const select = document.getElementById("category");
@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   
   async function loadProducts() {
     try {
-      const res = await fetch("http://localhost:3000/api/products");
+      const res = await fetch("/api/products");
       const data = await res.json();
   
       if (!res.ok) {
@@ -113,8 +113,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   
     const method = editingProductId ? "PUT" : "POST";
     const url = editingProductId
-      ? `http://localhost:3000/api/products/${editingProductId}`
-      : "http://localhost:3000/api/products";
+      ? `/api/products/${editingProductId}`
+      : "/api/products";
   
     try {
       const res = await fetch(url, {
@@ -145,7 +145,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     if (!confirm("למחוק מוצר זה?")) return;
   
     try {
-      const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
+      const res = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -166,7 +166,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   async function editProduct(productId) {
     try {
         document.getElementById("cancelEditBtn").style.display = "inline-block";
-      const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+      const res = await fetch(`/api/products/${productId}`);
       const product = await res.json();
   
       if (!res.ok) {
