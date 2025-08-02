@@ -12,6 +12,10 @@ router.post('/checkout/:customerId', async (req, res) => {
     const { delivery_date } = req.body;
     const customerId = req.params.customerId;
 
+    if (!delivery_date) {
+      return res.status(400).json({ message: "חובה לציין תאריך משלוח" });
+    }
+
     // ולידציה על תאריך: חייב להיות לפחות מחר
     const selectedDate = new Date(delivery_date);
     const tomorrow = new Date();
@@ -22,7 +26,7 @@ router.post('/checkout/:customerId', async (req, res) => {
       return res.status(400).json({ message: 'לא ניתן לבחור תאריך משלוח שהוא היום או מהעבר' });
     }
 
-    const cart = await Cart.findOne({ customer: customerId }).populate('items.product');
+    const cart = await CustomerCart.findOne({ customer: customerId }).populate('items.product');
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "העגלה ריקה" });
     }
@@ -30,22 +34,26 @@ router.post('/checkout/:customerId', async (req, res) => {
     const order = new CustomerOrder({
       customer: customerId,
       delivery_date,
-      items: cart.items.map(item => ({
-        product: item.product._id,
-        quantity: item.quantity
-      })),
+      items: cart.items
+        .filter(item => item.product) // סינון פריטים עם מוצר ריק
+        .map(item => ({
+          product: item.product._id,
+          quantity: item.quantity
+        })),
       status: "pending"
     });
 
     await order.save();
-    await Cart.findOneAndUpdate({ customer: customerId }, { items: [] });
+    await CustomerCart.findOneAndUpdate({ customer: customerId }, { items: [] });
 
     res.status(201).json({ message: "ההזמנה בוצעה בהצלחה", order });
 
   } catch (err) {
+    console.error("Checkout error:", err);
     res.status(500).json({ message: "שגיאה בביצוע ההזמנה", error: err.message });
   }
 });
+
 
 
 

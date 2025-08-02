@@ -24,6 +24,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const result = await res.json();
   
     if (res.ok) {
+      localStorage.setItem("customerId", data.customer._id);
       window.location.href = "./products.html"; // עובר לרשימת מוצרים אחרי הרשמה
     } else {
       document.getElementById("message").innerText = result.message || "שגיאה בהרשמה";
