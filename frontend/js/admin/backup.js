@@ -14,9 +14,14 @@
         a.download = "backup.json";
         a.click();
         window.URL.revokeObjectURL(url);
+        alert("נוצר גיבוי מקומי + הועלה לS3");
       })
       .catch(err => {
         alert("שגיאה בהורדת הגיבוי");
         console.error(err);
       });
   }
+
+function restoreData(){
+    alert("בעתיד תתווסף אפשרות לשחזור המערכת מקובץ גיבוי")
+}
