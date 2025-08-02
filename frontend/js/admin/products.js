@@ -63,14 +63,18 @@ window.addEventListener("DOMContentLoaded", async () => {
         div.className = "product-card";
   
         div.innerHTML = `
-          <h4>${product.name}</h4>
-          <img src="${product.image_url}" alt="Product Image" width="100"><br>
-          <strong>מק״ט:</strong> ${product.sku}<br>
-          <strong>מחיר לקוח:</strong> ₪${product.price_customer}<br>
-          <strong>מחיר לחברה:</strong> ₪${product.price_company}<br>
-          <strong>מלאי:</strong> ${product.quantity_in_stock} ${product.unit}<br>
-          <button onclick="deleteProduct('${product._id}')">🗑️ מחק</button>
-        `;
+  <img class="product-image" src="${product.image_url}" alt="Product Image">
+  <div class="product-info">
+    <strong>${product.name}</strong>
+    <span><strong>ספק:</strong> ${product.supplier?.name || '—'}</span><br>
+    <span><strong>מק״ט:</strong> ${product.sku}</span><br>
+    <span><strong>מחיר ללקוח:</strong> ₪${product.price_customer}</span><br>
+    <span><strong>מחיר לחברה:</strong> ₪${product.price_company}</span><br>
+    <span><strong>מלאי:</strong> ${product.quantity_in_stock} ${product.unit}</span>
+  </div>
+  <button onclick="deleteProduct('${product._id}')">🗑️ מחק</button>
+`;
+
   
         list.appendChild(div);
       });
