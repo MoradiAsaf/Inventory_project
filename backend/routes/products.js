@@ -42,9 +42,9 @@ router.post('/', authAdmin, async (req, res) => {
       price_customer,
       quantity_in_stock,
       unit,
+      image_url,
       notes
     } = req.body;
-
     const existingProduct = await Product.findOne({ name });
     if (existingProduct) {
       return res.status(409).json({ message: `Product '${name}' already exists` });
@@ -59,12 +59,14 @@ router.post('/', authAdmin, async (req, res) => {
       price_customer,
       quantity_in_stock,
       unit,
+      image_url,
       notes
     });
 
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
   } catch (err) {
+    console.error("❌ שגיאה בהוספת מוצר:", err.message);
     res.status(500).json({ message: "Something went wrong", error: err.message });
   }
 });

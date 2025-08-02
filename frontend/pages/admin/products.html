@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>🛒 ניהול מוצרים</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <script src="../../js/admin/checkAdminAuth.js"></script>
+
+  <h2>🛒 ניהול מוצרים</h2>
+
+  <div id="product-form" class="form-section">
+    <h3>➕ הוספת מוצר</h3>
+    <form id="addProductForm">
+      <input type="text" id="name" placeholder="שם מוצר" required>
+      <input type="text" id="sku" placeholder="מק״ט" required>
+
+      <label>ספק:
+        <select id="supplier" required>
+          <option value="">בחר ספק</option>
+        </select>
+      </label><br>
+
+      <label>קטגוריה:
+        <select id="category" required>
+          <option value="">בחר קטגוריה</option>
+        </select>
+      </label><br>
+
+      <input type="number" id="price_company" placeholder="מחיר לחברה" required>
+      <input type="number" id="price_customer" placeholder="מחיר ללקוח" required>
+      <input type="number" id="quantity_in_stock" placeholder="מלאי" required>
+
+      <label>יחידת מידה:
+        <select id="unit" required>
+          <option value="">בחר</option>
+          <option value="יח'">יח'</option>
+          <option value="ק״ג">ק״ג</option>
+          <option value="ליטר">ליטר</option>
+          <option value="מ״ל">מ״ל</option>
+        </select>
+      </label><br>
+
+      <input type="text" id="image_url" placeholder="URL של תמונה" required>
+      <textarea id="notes" placeholder="הערות"></textarea><br>
+      <button type="submit">💾 שמור מוצר</button>
+    </form>
+  </div>
+
+  <div id="product-list" class="form-section">
+    <h3>📋 רשימת מוצרים</h3>
+  </div>
+
+  <p id="message"></p>
+  <script src="../../js/admin/products.js"></script>
+</body>
+</html>
