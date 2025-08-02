@@ -3,6 +3,8 @@ const router = express.Router();
 const Admin = require('../models/admin');
 const bcrypt = require('bcryptjs');
 const { generateAdminToken } = require('../utils/jwtUtils');
+const { verifyToken } = require("../utils/jwtUtils");
+
 
 router.post('/login', async (req, res) => {
   try {
@@ -38,5 +40,33 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: "שגיאה פנימית", error: err.message });
   }
 });
+
+
+router.get("/me", (req, res) => {
+    console.log("🛡️ בקשה ל- /api/admin/me");
+    console.log("Cookies:", req.cookies);
+  
+    try {
+      const token = req.cookies?.adminToken;
+      if (!token) {
+        console.log("❌ אין טוקן");
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+  
+      const decoded = verifyToken(token);
+      console.log("✅ טוקן תקף", decoded);
+  
+      if (!decoded.adminId) {
+        console.log("❌ טוקן לא כולל adminId");
+        return res.status(403).json({ message: "Invalid token" });
+      }
+  
+      res.status(200).json({ message: "Authorized" });
+    } catch (err) {
+      console.log("❌ שגיאה באימות הטוקן:", err.message);
+      res.status(401).json({ message: "Unauthorized" });
+    }
+  });
+  
 
 module.exports = router;
