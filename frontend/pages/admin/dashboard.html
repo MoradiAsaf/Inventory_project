@@ -10,15 +10,18 @@
 
   <h2>📊 לוח ניהול</h2>
 
-  <div class="form-section" style="text-align: center;">
+  <div class="form-section dashboard">
     <p>ברוך הבא, מנהל 👨‍💼</p>
-    <button onclick="location.href='orders.html'">📦 ניהול הזמנות</button>
-    <button onclick="location.href='customers.html'">👥 ניהול לקוחות</button>
-    <button onclick="location.href='products.html'">🛒 ניהול מוצרים</button>
-    <button onclick="location.href='suppliers.html'">🚚 ניהול ספקים</button>
-    <br><br>
+    <div class="dashboard-buttons">
+      <button onclick="location.href='orders.html'">📦 ניהול הזמנות</button>
+      <button onclick="location.href='customers.html'">👥 ניהול לקוחות</button>
+      <button onclick="location.href='suppliers.html'">🚚 ניהול ספקים</button>
+      <button onclick="location.href='products.html'">🛒 ניהול מוצרים</button>
+    </div>
+    <br>
     <button onclick="logout()">🔓 התנתקות</button>
   </div>
+  
 
   <script>
     function logout() {

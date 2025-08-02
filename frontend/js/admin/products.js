@@ -70,20 +70,22 @@ window.addEventListener("DOMContentLoaded", async () => {
         div.className = "product-card";
   
         div.innerHTML = `
-  <img class="product-image" src="${product.image_url}" alt="Product Image">
-  <div class="product-info">
-    <strong>${product.name}</strong>
-    <span><strong>ספק:</strong> ${product.supplier?.name || '—'}</span><br>
-    <span><strong>מק״ט:</strong> ${product.sku}</span><br>
-    <span><strong>מחיר ללקוח:</strong> ₪${product.price_customer}</span><br>
-    <span><strong>מחיר לחברה:</strong> ₪${product.price_company}</span><br>
-    <span><strong>מלאי:</strong> ${product.quantity_in_stock} ${product.unit}</span>
-  </div>
-  <div class="product-actions">
-    <button onclick="editProduct('${product._id}')">✏️ ערוך</button>
-    <button onclick="deleteProduct('${product._id}')">🗑️ מחק</button>
-  </div>
-`;
+        <img class="product-image" src="${product.image_url}" alt="Product Image">
+        <div class="product-info">
+          <strong>${product.name}</strong>
+          <p><strong>ספק:</strong> ${product.supplier?.name || '—'}</p>
+          <p><strong>מק״ט:</strong> ${product.sku}</p>
+          <p><strong>מחיר ללקוח:</strong> ₪${product.price_customer}</p>
+          <p><strong>מחיר לחברה:</strong> ₪${product.price_company}</p>
+          <p><strong>מלאי:</strong> ${product.quantity_in_stock} ${product.unit}</p>
+      
+          <div class="product-actions">
+            <button onclick="editProduct('${product._id}')">✏️ ערוך</button>
+            <button onclick="deleteProduct('${product._id}')">🗑️ מחק</button>
+          </div>
+        </div>
+      `;
+      
 
   
         list.appendChild(div);
