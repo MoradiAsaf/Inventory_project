@@ -6,6 +6,8 @@ const Product = require('../models/products');
 const authAdmin = require("../middleware/authAdmin");
 
 
+
+
 // יצירת הזמנה מהעגלה
 router.post('/checkout/:customerId', async (req, res) => {
   try {
@@ -16,7 +18,6 @@ router.post('/checkout/:customerId', async (req, res) => {
       return res.status(400).json({ message: "חובה לציין תאריך משלוח" });
     }
 
-    // ולידציה על תאריך: חייב להיות לפחות מחר
     const selectedDate = new Date(delivery_date);
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -31,15 +32,18 @@ router.post('/checkout/:customerId', async (req, res) => {
       return res.status(400).json({ message: "העגלה ריקה" });
     }
 
+    const totalPrice = calculateCartTotal(cart); // ✅ שימוש בפונקציה שלך
+
     const order = new CustomerOrder({
       customer: customerId,
       delivery_date,
       items: cart.items
-        .filter(item => item.product) // סינון פריטים עם מוצר ריק
+        .filter(item => item.product)
         .map(item => ({
           product: item.product._id,
           quantity: item.quantity
         })),
+      total_price: totalPrice,
       status: "pending"
     });
 
