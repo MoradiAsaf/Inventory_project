@@ -1,28 +1,22 @@
-// בעת טעינת navbar
 window.addEventListener("DOMContentLoaded", () => {
-  let pathPrefix = location.pathname.includes("/pages/") ? "../" : "";
-  fetch(`${pathPrefix}components/navbar.html`)
-    .then(res => res.text())
-    .then(html => {
-      const navbarContainer = document.createElement("div");
-      navbarContainer.innerHTML = html;
-      document.body.insertBefore(navbarContainer, document.body.firstChild);
+  const navbar = document.createElement("div");
+  navbar.className = "navbar";
 
-      const logoutBtn = navbarContainer.querySelector("#logout-btn");
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-          fetch(`${pathPrefix}api/customers/logout`, {
-            method: "POST",
-            credentials: "include"
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.message === "logged out successfully") {
-                location.href = pathPrefix + "pages/login.html";
-              }
-            });
-            localStorage.removeItem("customerId");
-        });
-      }
+  navbar.innerHTML = `
+    <a href="/index.html">מסך הבית</a>
+    <a href="/pages/personal.html">🏠 אזור אישי</a>
+    <a href="/pages/products.html">🛒 מוצרים</a>
+    <a href="/pages/cart.html">🛍 עגלה</a>
+    <a href="#" id="logout-btn">🔓 התנתקות</a>
+  `;
+
+  document.body.prepend(navbar);
+
+  const logoutBtn = document.querySelector("#logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("token");
+      location.href = "/pages/login.html";
     });
+  }
 });

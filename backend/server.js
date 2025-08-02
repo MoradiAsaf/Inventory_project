@@ -14,7 +14,7 @@ const productsRoute = require("./routes/products")
 const cartRoute = require("./routes/customerCart");
 const orderRoute = require("./routes/customerOrder");
 const adminRoute = require("./routes/admin");
-
+const backupRoute = require("./routes/backup");
 const PORT = process.env.PORT || 3000
 const app = express();
 
@@ -34,6 +34,7 @@ app.use('/api/products', productsRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/orders', orderRoute);
 app.use('/api/admin', adminRoute);
+app.use('/api/backup', backupRoute);
 
 scheduleDailyUpdate();
 

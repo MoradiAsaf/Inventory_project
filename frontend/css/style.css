@@ -206,3 +206,27 @@ button:hover {
   gap: 10px;
 }
 
+.navbar {
+  background-color: #333;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+  padding: 10px;
+  gap: 10px;
+  direction: rtl;
+}
+
+.navbar a {
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  background-color: #444;
+  transition: background-color 0.2s;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}

@@ -20,6 +20,7 @@
   "homepage": "https://github.com/MoradiAsaf/Inventory_and_Order_Management_System#readme",
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.859.0",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
