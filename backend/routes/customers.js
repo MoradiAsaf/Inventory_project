@@ -93,6 +93,12 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.post('/logout', async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "logged out successfully" });
+})
+
+
 
 // שליפת פרטי לקוח לפי ID
 router.get('/:id', authMiddleware, async (req, res) => {

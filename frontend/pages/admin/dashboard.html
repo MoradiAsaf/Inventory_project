@@ -19,16 +19,9 @@
       <button onclick="location.href='products.html'">🛒 ניהול מוצרים</button>
     </div>
     <br>
-    <button onclick="logout()">🔓 התנתקות</button>
+    <button id="logout-btn">🔓 התנתקות</button>
   </div>
-  
-
-  <script>
-    function logout() {
-      document.cookie = "adminToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      location.href = "login.html";
-    }
-  </script>
+  <script src="../../js/admin/admin_logout.js"></script>
 </body>
 
 </html>

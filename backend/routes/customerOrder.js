@@ -52,6 +52,11 @@ router.post('/checkout/:customerId', async (req, res) => {
 // שליפת כל ההזמנות של לקוח מסוים
 router.get('/customer/:customerId', async (req, res) => {
   try {
+    const customerId = req.params.customerId;
+    if (customerId == "null") {
+      res.status(400).json({ message: "לקוח לא מוגדר" });
+      return;
+    }
     const orders = await CustomerOrder.find({ customer: req.params.customerId }).populate('items.product');
     res.status(200).json(orders);
   } catch (err) {

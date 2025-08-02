@@ -41,6 +41,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/logout', async (req, res) => {
+  res.clearCookie("adminToken");
+  res.status(200).json({ message: "logged out successfully" });
+})
+
 
 router.get("/me", (req, res) => {
     console.log("🛡️ בקשה ל- /api/admin/me");
