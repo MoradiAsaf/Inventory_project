@@ -5,7 +5,7 @@ const CustomerCart = require('../models/customerCart');
 const Product = require('../models/products');
 const authAdmin = require("../middleware/authAdmin");
 const calculateCartTotal = require('../utils/calculateCartTotal');
-
+const updateStockOnDelivery = require('../services/updateStock');
 
 
 
@@ -98,8 +98,13 @@ router.patch('/:orderId/status', authAdmin, async (req, res) => {
     const order = await CustomerOrder.findById(req.params.orderId);
     if (!order) return res.status(404).json({ message: 'Order not found' });
 
+    const previousStatus = order.status; // שמור את הסטטוס המקורי
     order.status = status;
     order.rejection_reason = status === 'rejected' ? rejection_reason || 'No reason provided' : null;
+
+    if (status === 'delivered' && previousStatus !== 'delivered') {
+      await updateStockOnDelivery(order);
+    }
 
     await order.save();
 
@@ -109,6 +114,7 @@ router.patch('/:orderId/status', authAdmin, async (req, res) => {
     res.status(500).json({ message: 'Something went wrong', error: err.message });
   }
 });
+
 
 
 module.exports = router;

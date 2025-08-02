@@ -1,20 +1,25 @@
 const CustomerOrder = require("../models/customerOrder");
+const updateStockOnDelivery = require('./updateStock');
 
 async function autoUpdateOrders() {
   try {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const result = await CustomerOrder.updateMany(
-      {
+    const ordersToUpdate = await CustomerOrder.find({
         status: "pending",
         delivery_date: { $lte: today }
-      },
-      { $set: { status: "delivered" } }
-    );
+      }).populate('items.product');
+      
 
-    if (result.modifiedCount > 0) {
-      console.log(`✅ עודכנו ${result.modifiedCount} הזמנות לסטטוס 'delivered'`);
+    for (const order of ordersToUpdate) {
+      order.status = "delivered";
+      await updateStockOnDelivery(order);
+      await order.save();
+    }
+
+    if (ordersToUpdate.length > 0) {
+      console.log(`✅ עודכנו ${ordersToUpdate.length} הזמנות לסטטוס 'delivered' עם עדכון מלאי`);
     }
   } catch (err) {
     console.error("❌ שגיאה בעדכון סטטוס הזמנות:", err.message);
