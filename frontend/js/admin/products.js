@@ -1,3 +1,4 @@
+let editingProductId = null;
 window.addEventListener("DOMContentLoaded", async () => {
     await Promise.all([
       loadSuppliers(),
@@ -7,8 +8,14 @@ window.addEventListener("DOMContentLoaded", async () => {
   
     document.getElementById("addProductForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      await addProduct();
+      await saveProduct();
     });
+    document.getElementById("cancelEditBtn").addEventListener("click", () => {
+        editingProductId = null;
+        document.getElementById("addProductForm").reset();
+        document.getElementById("cancelEditBtn").style.display = "none";
+      });
+      
   });
   
   async function loadSuppliers() {
@@ -72,7 +79,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     <span><strong>מחיר לחברה:</strong> ₪${product.price_company}</span><br>
     <span><strong>מלאי:</strong> ${product.quantity_in_stock} ${product.unit}</span>
   </div>
-  <button onclick="deleteProduct('${product._id}')">🗑️ מחק</button>
+  <div class="product-actions">
+    <button onclick="editProduct('${product._id}')">✏️ ערוך</button>
+    <button onclick="deleteProduct('${product._id}')">🗑️ מחק</button>
+  </div>
 `;
 
   
@@ -85,7 +95,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   }
   
-  async function addProduct() {
+  async function saveProduct() {
     const payload = {
       name: document.getElementById("name").value,
       sku: document.getElementById("sku").value,
@@ -99,9 +109,14 @@ window.addEventListener("DOMContentLoaded", async () => {
       notes: document.getElementById("notes").value,
     };
   
+    const method = editingProductId ? "PUT" : "POST";
+    const url = editingProductId
+      ? `http://localhost:3000/api/products/${editingProductId}`
+      : "http://localhost:3000/api/products";
+  
     try {
-      const res = await fetch("http://localhost:3000/api/products", {
-        method: "POST",
+      const res = await fetch(url, {
+        method,
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -110,15 +125,19 @@ window.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
   
       if (res.ok) {
-        alert("✅ מוצר נוסף");
+        alert(editingProductId ? "✅ המוצר עודכן" : "✅ מוצר נוסף");
+        editingProductId = null;
+        document.getElementById("addProductForm").reset();
         location.reload();
+        document.getElementById("cancelEditBtn").style.display = "none";
       } else {
-        document.getElementById("message").innerText = data.message || "שגיאה בהוספת מוצר";
+        document.getElementById("message").innerText = data.message || "שגיאה";
       }
     } catch (err) {
       document.getElementById("message").innerText = "שגיאה בתקשורת עם השרת";
     }
   }
+  
   
   async function deleteProduct(productId) {
     if (!confirm("למחוק מוצר זה?")) return;
@@ -137,6 +156,35 @@ window.addEventListener("DOMContentLoaded", async () => {
       } else {
         document.getElementById("message").innerText = data.message || "שגיאה במחיקה";
       }
+    } catch (err) {
+      document.getElementById("message").innerText = "שגיאה בתקשורת עם השרת";
+    }
+  }
+  
+  async function editProduct(productId) {
+    try {
+        document.getElementById("cancelEditBtn").style.display = "inline-block";
+      const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+      const product = await res.json();
+  
+      if (!res.ok) {
+        document.getElementById("message").innerText = "שגיאה בטעינת המוצר";
+        return;
+      }
+  
+      // מילוי הטופס עם נתוני המוצר
+      document.getElementById("name").value = product.name;
+      document.getElementById("sku").value = product.sku;
+      document.getElementById("supplier").value = product.supplier?._id;
+      document.getElementById("category").value = product.category?._id;
+      document.getElementById("price_company").value = product.price_company;
+      document.getElementById("price_customer").value = product.price_customer;
+      document.getElementById("quantity_in_stock").value = product.quantity_in_stock;
+      document.getElementById("unit").value = product.unit;
+      document.getElementById("image_url").value = product.image_url;
+      document.getElementById("notes").value = product.notes || "";
+  
+      editingProductId = productId;
     } catch (err) {
       document.getElementById("message").innerText = "שגיאה בתקשורת עם השרת";
     }
