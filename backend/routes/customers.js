@@ -5,6 +5,7 @@ const bcryptjs = require("bcryptjs")
 const { generateToken } = require("../utils/jwtUtils")
 const authMiddleware = require("../middleware/authMiddleware")
 const CustomerCart = require("../models/customerCart");
+const authAdmin = require('../middleware/authAdmin');
 
 
 router.post('/signup', async (req, res) => {
@@ -145,20 +146,56 @@ router.put('/:id', authMiddleware, async (req, res) => {
 
 
 // מחיקת לקוח (לא חובה)
-router.delete('/:id', authMiddleware, async (req, res) => {
+router.put('/:id/change_status', authMiddleware, async (req, res) => {
   try {
-    if (req.customerId !== req.params.id) {
-      return res.status(403).json({ message: 'Unauthorized access' });
-    }
-
-    const deleted = await Customer.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ message: 'Customer not found' });
-
-    res.status(200).json({ message: 'Customer deleted successfully' });
+    const customer = await Customer.findById(req.params.id);
+    if (!customer) return res.status(404).json({ message: 'Customer not found' });
+    customer.is_active = !customer.is_active;
+    await customer.save();
+      res.status(200).json({ message: 'Customer cancelled successfully' });
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong', error: err.message });
   }
 });
+
+
+
+
+// 📋 שליפת כל הלקוחות (למנהל בלבד)
+router.get('/', authAdmin, async (req, res) => {
+  try {
+    const customers = await Customer.find().sort({ createdAt: -1 }).select('-password');
+    res.json(customers);
+  } catch (err) {
+    res.status(500).json({ message: 'שגיאה בטעינת לקוחות', error: err.message });
+  }
+});
+
+// ✏️ עדכון פרטי לקוח ע"י מנהל
+router.put('/admin/:id', authAdmin, async (req, res) => {
+  try {
+    const allowedFields = ['full_name', 'phone', 'address', 'payment_method', 'billing_day'];
+    const updates = {};
+
+    for (const key of allowedFields) {
+      if (req.body[key] !== undefined) {
+        updates[key] = req.body[key];
+      }
+    }
+
+    const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, updates, {
+      new: true,
+      runValidators: true,
+      select: '-password'
+    });
+
+    if (!updatedCustomer) return res.status(404).json({ message: 'לקוח לא נמצא' });
+    res.status(200).json(updatedCustomer);
+  } catch (err) {
+    res.status(500).json({ message: 'שגיאה בעדכון לקוח', error: err.message });
+  }
+});
+
 
 
 module.exports = router;

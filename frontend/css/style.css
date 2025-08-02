@@ -181,3 +181,28 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+
+.customer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+}
+
+.customer-card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.customer-card h4 {
+  margin: 0;
+}
+
+.customer-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+

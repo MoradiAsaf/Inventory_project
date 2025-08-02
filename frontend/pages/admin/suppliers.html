@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>🚚 ניהול ספקים</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <script src="../../js/admin/checkAdminAuth.js"></script>
+<!--   <script src="../../js/admin/loadAdminNavbar.js"></script>
+ -->
+  <h2>🚚 ניהול ספקים</h2>
+
+  <div class="form-section">
+    <input type="text" id="searchInput" placeholder="חיפוש לפי שם ספק">
+    <button onclick="showAddForm()">➕ הוסף ספק</button>
+  </div>
+
+  <div id="suppliers-container" class="form-section">🔄 טוען ספקים...</div>
+
+  <div id="addSupplierForm" style="display: none; margin-top: 20px;" class="form-section">
+    <h3>הוספת ספק חדש</h3>
+  
+    <label>שם ספק: <input type="text" id="supplierName" required></label><br>
+    <label>איש קשר: <input type="text" id="contactName"></label><br>
+    <label>טלפון: <input type="text" id="phone"></label><br>
+    <label>אימייל: <input type="email" id="email"></label><br>
+    <label>הערות: <textarea id="notes" rows="2"></textarea></label><br>
+  
+    <button onclick="addSupplier()">💾 שמור</button>
+    <button onclick="hideAddForm()">❌ ביטול</button>
+    <p id="formMessage"></p>
+  </div>
+  
+
+  <script src="../../js/admin/suppliers.js"></script>
+</body>
+</html>

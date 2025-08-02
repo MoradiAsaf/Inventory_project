@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>📂 ניהול קטגוריות</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <script src="../../js/admin/checkAdminAuth.js"></script>
+<!--   <script src="../../js/admin/loadAdminNavbar.js"></script>
+ -->
+
+  <h2>📂 ניהול קטגוריות</h2>
+
+  <div class="form-section">
+    <input type="text" id="searchInput" placeholder="חיפוש לפי שם קטגוריה">
+    <button onclick="showAddForm()">➕ הוסף קטגוריה</button>
+  </div>
+
+  <div id="categories-container" class="form-section">🔄 טוען קטגוריות...</div>
+
+  <div id="addCategoryForm" style="display: none;" class="form-section">
+    <h3>הוספת קטגוריה</h3>
+    <label>שם קטגוריה: <input type="text" id="categoryName"></label><br>
+    <button onclick="addCategory()">💾 שמור</button>
+    <button onclick="hideAddForm()">❌ ביטול</button>
+    <p id="formMessage"></p>
+  </div>
+
+  <script src="../../js/admin/categories.js"></script>
+</body>
+</html>
