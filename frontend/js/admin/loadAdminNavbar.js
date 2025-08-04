@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
       <a href="/pages/admin/products.html">🛒 מוצרים</a>
       <a href="/pages/admin/categories.html">📂 קטגוריות</a>
       <a href="/pages/admin/suppliers.html">🚚 ספקים</a>
-      <a href="#" id="logout-btn">🔓 התנתקות</a>
+      <a href="/index.html" id="logout-btn">🔓 התנתקות</a>
     `;
   
     document.body.prepend(navbar);
