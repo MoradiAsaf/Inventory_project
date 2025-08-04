@@ -21,10 +21,22 @@ router.get("/", authMiddleware, async (req, res) => {
 
 
 // הוספת מוצר לעגלה (או עדכון כמות)
+const Product = require('../models/products'); // ודא שהייבוא קיים
+
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { productId, quantity } = req.body;
     const customerId = req.customerId;
+
+    // שליפת המוצר ובדיקת מלאי
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "המוצר לא נמצא" });
+    }
+
+    if (quantity > product.quantity_in_stock) {
+      return res.status(400).json({ message: `אין מספיק מלאי למוצר זה. נותרו רק ${product.quantity_in_stock} פריטים.` });
+    }
 
     let cart = await CustomerCart.findOne({ customer: customerId });
 
@@ -37,7 +49,11 @@ router.post('/', authMiddleware, async (req, res) => {
       const itemIndex = cart.items.findIndex(item => item.product.toString() === productId);
 
       if (itemIndex > -1) {
-        cart.items[itemIndex].quantity += quantity;
+        const newQuantity = cart.items[itemIndex].quantity + quantity;
+        if (newQuantity > product.quantity_in_stock) {
+          return res.status(400).json({ message: `אין מספיק מלאי למוצר זה. ניתן להוסיף רק עד ${product.quantity_in_stock - cart.items[itemIndex].quantity} פריטים.` });
+        }
+        cart.items[itemIndex].quantity = newQuantity;
       } else {
         cart.items.push({ product: productId, quantity });
       }
@@ -46,12 +62,13 @@ router.post('/', authMiddleware, async (req, res) => {
     cart.last_updated = Date.now();
     await cart.save();
 
-    res.status(200).json({ message: 'Product added to cart', cart });
+    res.status(200).json({ message: 'המוצר נוסף לעגלה', cart });
   } catch (err) {
-    console.error("Error adding to cart:", err);
-    res.status(500).json({ message: 'Something went wrong', error: err.message });
+    console.error(err);
+    res.status(500).json({ message: "שגיאה בהוספת מוצר לעגלה" });
   }
 });
+
 
 // עדכון כל העגלה (החלפה מלאה)
 router.put('/', authMiddleware, async (req, res) => {

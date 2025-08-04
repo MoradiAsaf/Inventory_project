@@ -2,23 +2,27 @@
 <html lang="he">
 <head>
   <meta charset="UTF-8">
-  <title>העגלה שלי</title>
+  <title>🛒 העגלה שלי</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <script src="../js/loadNavbar.js"></script>
 
-  <h2>העגלה שלי</h2>
+  <button onclick="location.href='products.html'" class="back-btn">🔙 חזרה לרשימת המוצרים</button>
 
-  <div id="cart-container"></div>
-  <p id="total" style="font-weight: bold;"></p>
+  <h2>🛒 העגלה שלי</h2>
 
-  <label>תאריך משלוח:
-    <input type="date" id="deliveryDate" min="">
-  </label>
-  <br>
+  <div id="cart-container" class="cart-items"></div>
 
-  <button id="placeOrderBtn">סיום הזמנה</button>
+  <div class="cart-summary">
+    <p id="total"></p>
+
+    <label for="deliveryDate"><strong>תאריך משלוח:</strong></label>
+    <input type="date" id="deliveryDate">
+
+    <button id="placeOrderBtn">🧾 סיום הזמנה</button>
+  </div>
+
   <p id="message"></p>
 
   <script src="../js/cart.js"></script>

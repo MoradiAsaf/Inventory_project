@@ -5,8 +5,8 @@ window.addEventListener("DOMContentLoaded", () => {
   navbar.innerHTML = `
     <a href="/index.html">מסך הבית</a>
     <a href="/pages/personal.html">🏠 אזור אישי</a>
-    <a href="/pages/products.html">🛒 מוצרים</a>
-    <a href="/pages/cart.html">🛍 עגלה</a>
+    <a href="/pages/products.html">🛍 מוצרים</a>
+    <a href="/pages/cart.html">🛒 עגלה</a>
     <a href="#" id="logout-btn">🔓 התנתקות</a>
   `;
 

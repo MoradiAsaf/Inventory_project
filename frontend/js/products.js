@@ -27,11 +27,14 @@ window.addEventListener("DOMContentLoaded", async () => {
           <strong>${p.name}</strong>
           מחיר: ${p.price_customer} ₪<br>
           קטגוריה: ${p.category?.name || '---'}<br>
-          ספק: ${p.supplier?.name || '---'}<br><br>
+          ספק: ${p.supplier?.name || '---'}<br>
+          כמות במלאי: ${p.quantity_in_stock}<br><br>
           <label>כמות:
             <input type="number" min="1" value="1" id="qty-${p._id}">
-          </label><br><br>
-          <button class="add-to-cart-btn" onclick="addToCart('${p._id}')">הוסף לעגלה</button>
+          </label><br>
+          ${p.quantity_in_stock <= 0 ? "<p style='color:red'>המוצר אינו זמין במלאי</p>" : ""}
+          <br>
+          <button class="add-to-cart-btn" onclick="addToCart('${p._id}')" ${p.quantity_in_stock <= 0? "disabled title='המוצר לא זמין במלאי'" : ""}>הוסף לעגלה</button>
         </div>
       `;
         

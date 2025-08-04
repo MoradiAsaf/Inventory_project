@@ -10,10 +10,13 @@ window.addEventListener("DOMContentLoaded", async () => {
       e.preventDefault();
       await saveProduct();
     });
+    
     document.getElementById("cancelEditBtn").addEventListener("click", () => {
         editingProductId = null;
         document.getElementById("addProductForm").reset();
         document.getElementById("cancelEditBtn").style.display = "none";
+        document.getElementById("product-form-title").innerText = "➕ הוספת מוצר";
+
       });
       
   });
@@ -130,6 +133,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         alert(editingProductId ? "✅ המוצר עודכן" : "✅ מוצר נוסף");
         editingProductId = null;
         document.getElementById("addProductForm").reset();
+        document.getElementById("product-form-title").innerText = "➕ הוספת מוצר";
+
         location.reload();
         document.getElementById("cancelEditBtn").style.display = "none";
       } else {
@@ -165,6 +170,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   
   async function editProduct(productId) {
     try {
+      document.getElementById("product-form-title").innerText = "✏️ עריכת מוצר";
+
         document.getElementById("cancelEditBtn").style.display = "inline-block";
       const res = await fetch(`/api/products/${productId}`);
       const product = await res.json();
@@ -187,6 +194,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("notes").value = product.notes || "";
   
       editingProductId = productId;
+
     } catch (err) {
       document.getElementById("message").innerText = "שגיאה בתקשורת עם השרת";
     }
