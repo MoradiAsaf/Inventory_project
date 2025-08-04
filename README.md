@@ -61,7 +61,13 @@ A full-stack web application for managing customers, products, orders, and suppl
 npm install
 ```
 
-2. Create a `.env` file in the `backend/` folder with the following:
+2. Create a `.env` file in the `backend/` folder (you can start by copying `.env.example`):
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+3. Fill in your own values in the `.env` file:
 
 ```env
 PORT=3000
@@ -73,13 +79,13 @@ S3_BUCKET_NAME=your_bucket
 VAT_RATE=0.17
 ```
 
-3. Run the server:
+4. Run the server:
 
 ```bash
 node backend/server.js
 ```
 
-4. Open `frontend/index.html` in your browser.
+5. Open `frontend/index.html` in your browser.
 
 ---
 
@@ -87,13 +93,13 @@ node backend/server.js
 
 ### Customer:
 
-* **Username:** `user`
-* **Password:** `123456`
+* **Username:** `user1`
+* **Password:** `pass123`
 
 ### Admin:
 
-* **Username:** `admin`
-* **Password:** `admin`
+* **Username:** `admin1`
+* **Password:** `admin123`
 
 *(You may also use `createAdmin.js` to add your own admin)*
 
@@ -101,13 +107,13 @@ node backend/server.js
 
 ## 🌐 Live Website
 
-[https://inventoryprj-production.up.railway.app/](https://inventoryprj-production.up.railway.app/)
+[https://your-project-name.up.railway.app](https://your-project-name.up.railway.app)
 
 ---
 
 ## 📦 GitHub Repository
 
-[https://github.com/MoradiAsaf/Inventory_project](https://github.com/MoradiAsaf/Inventory_project)
+[https://github.com/assafmordi/Inventory\_and\_Order\_Management\_System](https://github.com/assafmordi/Inventory_and_Order_Management_System)
 
 ---
 
