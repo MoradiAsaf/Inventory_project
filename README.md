@@ -107,13 +107,13 @@ node backend/server.js
 
 ## 🌐 Live Website
 
-[https://your-project-name.up.railway.app](https://your-project-name.up.railway.app)
+[https://inventoryprj-production.up.railway.app/](https://inventoryprj-production.up.railway.app/)
 
 ---
 
 ## 📦 GitHub Repository
 
-[https://github.com/assafmordi/Inventory\_and\_Order\_Management\_System](https://github.com/assafmordi/Inventory_and_Order_Management_System)
+[https://github.com/MoradiAsaf/Inventory_project](https://github.com/MoradiAsaf/Inventory_project)
 
 ---
 
