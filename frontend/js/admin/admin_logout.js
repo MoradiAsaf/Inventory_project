@@ -1,12 +1,12 @@
 function admin_logout() {
-fetch("/api/admin/logout", {
+fetch("/inventory/api/admin/logout", {
     method: "POST",
     credentials: "include"
 })
 .then(res => res.json())
 .then(data => {
     if (data.message === "logged out successfully") {
-        window.location.href = "/pages/admin/login.html";
+        window.location.href = "/inventory/pages/admin/login.html";
     }
 })
 }

@@ -5,7 +5,7 @@ document.getElementById("adminLoginForm").addEventListener("submit", async (e) =
     const password = document.getElementById("password").value;
   
     try {
-      const res = await fetch("/api/admin/login", {
+      const res = await fetch("/inventory/api/admin/login", {
         method: "POST",
         credentials: "include", // חשוב כדי לקבל את ה-cookie
         headers: {

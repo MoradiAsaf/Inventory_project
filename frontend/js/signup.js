@@ -12,7 +12,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
       billing_day:   parseInt(document.getElementById("billing_day").value)
     };
   
-    const res = await fetch("/api/customers/signup", {
+    const res = await fetch("/inventory/api/customers/signup", {
       method: "POST",
       credentials: "include",
       headers: {

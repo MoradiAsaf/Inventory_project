@@ -16,7 +16,11 @@ const orderRoute = require("./routes/customerOrder");
 const adminRoute = require("./routes/admin");
 const backupRoute = require("./routes/backup");
 const PORT = process.env.PORT || 3000
+// האפליקציה מוגשת תחת נתיב בסיס (למשל asafmoradi.com/inventory).
+// הפרונט משתמש בנתיבים מוחלטים שמתחילים ב-/inventory, לכן ברירת המחדל כאן זהה.
+const BASE_PATH = (process.env.BASE_PATH || "/inventory").replace(/\/+$/, "") || "/";
 const app = express();
+const site = express.Router();
 
 app.use(express.json())
 app.use(cookieParser());
@@ -27,32 +31,39 @@ app.use(cors({
 
 
 
-app.use('/api/customers', customerRoute)
-app.use('/api/suppliers', supplierRoute)
-app.use('/api/categories', categoryRoute)
-app.use('/api/products', productsRoute)
-app.use('/api/cart', cartRoute)
-app.use('/api/orders', orderRoute);
-app.use('/api/admin', adminRoute);
-app.use('/api/backup', backupRoute);
+site.use('/api/customers', customerRoute)
+site.use('/api/suppliers', supplierRoute)
+site.use('/api/categories', categoryRoute)
+site.use('/api/products', productsRoute)
+site.use('/api/cart', cartRoute)
+site.use('/api/orders', orderRoute);
+site.use('/api/admin', adminRoute);
+site.use('/api/backup', backupRoute);
 
 scheduleDailyUpdate();
 
 // הגשת קבצי סטטיים מהתיקיה frontend
-app.use(express.static(path.join(__dirname, "../frontend")));
+site.use(express.static(path.join(__dirname, "../frontend")));
 
 // ניתוב ברירת מחדל – נשלח index.html
-app.get("/", (req, res) => {
+site.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-app.use((req, res) => {
+site.use((req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
+
+app.use(BASE_PATH, site);
+
+if (BASE_PATH !== "/") {
+  // שורש הדומיין/הפורט -> האפליקציה
+  app.get("/", (req, res) => res.redirect(BASE_PATH + "/"));
+}
 
 
 
 app.listen(PORT, () => {
-    console.log(`server is running on port ${PORT}`)
+    console.log(`server is running on port ${PORT} under ${BASE_PATH}`)
     
 })

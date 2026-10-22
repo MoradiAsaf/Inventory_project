@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 async function loadCart() {
   try {
-    const res = await fetch("/api/cart", {
+    const res = await fetch("/inventory/api/cart", {
       credentials: "include"
     });
     const data = await res.json();
@@ -63,7 +63,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
     const customerId = localStorage.getItem("customerId");
     const deliveryDate = document.getElementById("deliveryDate").value;
 
-    const res = await fetch(`/api/orders/checkout/${customerId}`, {
+    const res = await fetch(`/inventory/api/orders/checkout/${customerId}`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

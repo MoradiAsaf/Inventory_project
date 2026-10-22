@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     let customers = [];
   
     try {
-      const res = await fetch("/api/customers", {
+      const res = await fetch("/inventory/api/customers", {
         headers: {
           "Content-Type": "application/json"
         },
@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   
   async function toggleCustomer(customerId, currentStatus) {
     try {
-      const res = await fetch(`/api/customers/${customerId}/change_status`, {
+      const res = await fetch(`/inventory/api/customers/${customerId}/change_status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"

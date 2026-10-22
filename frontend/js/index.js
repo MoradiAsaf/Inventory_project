@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", async () => {
     try {
-      const res = await fetch("/api/products", {
+      const res = await fetch("/inventory/api/products", {
         credentials: "include"
       });
   
@@ -47,7 +47,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   
     const qty = parseInt(document.getElementById(`qty-${productId}`).value || "1");
   
-    fetch("/api/cart", {
+    fetch("/inventory/api/cart", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

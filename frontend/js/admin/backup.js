@@ -1,5 +1,5 @@
   function downloadBackup() {
-    fetch("/api/backup/download", {
+    fetch("/inventory/api/backup/download", {
       method: "GET",
       credentials: "include"
     })

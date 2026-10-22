@@ -42,7 +42,7 @@ A full-stack web application for managing customers, products, orders, and suppl
 * MongoDB Atlas + Mongoose
 * JWT authentication (token stored in cookies)
 * Amazon S3 for database backups
-* Railway deployment platform
+* Self-hosted on a VPS (nginx + pm2 + Cloudflare), served under the `/inventory` base path (`BASE_PATH` env, default `/inventory`)
 
 ---
 
@@ -107,7 +107,7 @@ node backend/server.js
 
 ## 🌐 Live Website
 
-[https://inventoryprj-production.up.railway.app/](https://inventoryprj-production.up.railway.app/)
+[https://asafmoradi.com/inventory/](https://asafmoradi.com/inventory/) (self-hosted VPS, nginx + pm2; previously Railway)
 
 ---
 

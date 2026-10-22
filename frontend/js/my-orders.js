@@ -2,7 +2,7 @@ const customerId = localStorage.getItem("customerId");
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {
-    const res = await fetch(`/api/orders/customer/${customerId}`, {
+    const res = await fetch(`/inventory/api/orders/customer/${customerId}`, {
       credentials: "include"
     });
     const data = await res.json();

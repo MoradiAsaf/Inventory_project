@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   async function loadSuppliers() {
     const container = document.getElementById("suppliers-container");
     try {
-      const res = await fetch("/api/suppliers", {
+      const res = await fetch("/inventory/api/suppliers", {
         credentials: "include"
       });
       const data = await res.json();
@@ -70,7 +70,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   
     try {
-      const res = await fetch("/api/suppliers", {
+      const res = await fetch("/inventory/api/suppliers", {
         method: "POST",
         credentials: "include",
         headers: {

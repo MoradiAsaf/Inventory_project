@@ -1,7 +1,7 @@
 const customerId = localStorage.getItem("customerId");
 
 async function loadOrders() {
-  const res = await fetch(`/api/orders/customer/${customerId}`);
+  const res = await fetch(`/inventory/api/orders/customer/${customerId}`);
   const data = await res.json();
 
   const container = document.getElementById("content-area");
